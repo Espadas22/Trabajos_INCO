@@ -6,45 +6,6 @@ print("practica  08");
 print("espadas rodriguez anthony jonathan");
 print("mariscal cervantes diego maximiliano\n");
 
-#asegura valores igual o mayores a cero
-def validarPositivo():
-    valor = int(input("Introduce un numero valido\n"));
-    if valor < 0:
-        valor = validarPositivo();
-    return valor;
-
-#Asegura valores mayores a cero
-def validarCantidad():
-    valor = int(input("Introduce un numero valido\n"));
-    if valor < 1:
-        print("La cantidad debe ser al menos 1");
-        valor = validarCantidad();
-    return valor;
-
-#Asegura calificaciones en rango de 0 a 100
-def validarCalificacion():
-    valor = float(input("Introduce un valor dentro del rango\n"));
-    if (valor > 100) | (valor < 0):
-        print("Las calificaciones van de 0 a 100");
-        valor = validarCalificacion();
-    return valor;
-
-#Aegura numeros en un rango de 0 a 9
-def validarRango():
-    valor = int(input("Introduce un valor dentro del rango\n"));
-    if (valor > 9) | (valor < 0):
-        print("Los valores deben estar entre 0 y 9");
-        valor = validarRango();
-    return valor;
-
-#Asegura numeros entre 0 y 6
-def validarMenu():
-    valor = int(input("Introduce un valor dentro del rango\n"));
-    if (valor > 6) | (valor < 0):
-        print("Los valores deben estar entre 0 y 6");
-        valor = validarMenu();
-    return valor;
-
 def e1(): #Calculo para el radio de una esfera
     radio = float(input("Dame el radio de una esfera\n"));
     while radio <= 0:
@@ -53,29 +14,31 @@ def e1(): #Calculo para el radio de una esfera
     area = 4 * 3.1416 * radio;
     print("El area de una esfera de radio %.2f es: %.2f " % (radio, area));
 
-def e2(): #Cacular volumend de una cantidad n de cubos
+def e2(): #Cacular volumen de una cantidad n de cubos
     arista = 1;
     contador = 1;
+
     while arista > 0:
         if contador == 1:
             arista = float(input("Dame la medida de la arista de un cubo\n"));
         else:
             arista = float(input("\nDame la medida de la arista de otro cubo\n(Para salir, presiona 0)\n"));
-        if arista < 0:
+
+        while arista < 0:
             print("El valor debe ser positivo para calcular o 0 para salir");
-            arista = validarPositivo();
-        if arista > 0:
-            contador += 1;
-            volumen = arista**3;
-            print("\nEl volumen del cubo", contador-1," con arista de %.2f es de: %.2f" % (arista, volumen));
+            arista = float(input("Ingresa un valor valido\n"));
+            
+        contador += 1;
+        volumen = arista**3;
+        print("\nEl volumen del cubo", contador-1," con arista de %.2f es de: %.2f" % (arista, volumen));
 
 def e3(): #Generador de tablas de multiplicar, desde 0 a n
     tabla = int(input("De cual numero quieres conocer la tabla?\n"));
 
     repeticiones = int(input("Hasta que valor quieres calcular?\n"));
-    if repeticiones < 0:
+    while repeticiones < 0:
         print("El numero de repeticiones debe ser mayor a cero");
-        repeticiones = validarPositivo();
+        repeticiones = int(input("Ingresa un valor valido\n"));
 
     while repeticiones >= 0:
         resultado = tabla*repeticiones;
@@ -83,10 +46,11 @@ def e3(): #Generador de tablas de multiplicar, desde 0 a n
         repeticiones -= 1;
 
 def e4(): #Inversor de signo de una cantidad n de numeros
-    repeticiones = int(input("Cuantos numeros vamos a invertir?\n"))
-    if repeticiones < 1:
+    repeticiones = int(input("Cuantos numeros vamos a invertir?\n"));
+
+    while repeticiones < 1:
         print("La cantidad de numeros debe ser al menos 1");
-        repeticiones = validarCantidad();
+        repeticiones = int(input("Ingresa un valor valido\n"));
     
     contador = 0;
     conversion = "";
@@ -107,30 +71,35 @@ def e5(): #Promedia las calificaciones de un numero n de alumnos y menciona la m
     suma = 0;
     calificacion_maxima = 0;
 
-    if repeticiones < 1:
+    while repeticiones < 1:
         print("Se debe registrar al menos una calificacion");
-        repeticiones = validarCantidad();
+        repeticiones = int(input("Introduce un valor valido\n"));
 
     while repeticiones != contador:
         print("Dame la calificacion del alumno", contador+1);
         calificacion = float(input());
-        if (calificacion > 100) | (calificacion < 0):
+
+        while (calificacion > 100) | (calificacion < 0):
             print("Las calificaciones van de 0 a 100");
-            calificacion = validarCalificacion();
+            calificacion = float(input("Introduce un valor valido\n"));
+
         if calificacion > calificacion_maxima:
             calificacion_maxima = calificacion;
             mejor_alumno = contador+1;
+
         suma += calificacion;
         contador += 1;
+
     promedio = suma/repeticiones;
     print("\nEl promedio fue", promedio);
     print("\nLa calificacion mas alta fue", calificacion_maxima,"del alumno", mejor_alumno);
 
 def e6(): #Determina los colores de una cantidad n de autos
     repeticiones = int(input("Cuantos carros vamos a evaluar?\n"));
-    if repeticiones < 1:
+
+    while repeticiones < 1:
         print("El numero de carros debe ser al menos 1");
-        repeticiones = validarCantidad();
+        repeticiones = int(input("Ingresa un valor valido\n"));
 
     contador = 1;
     amarillos = 0;
@@ -142,9 +111,10 @@ def e6(): #Determina los colores de una cantidad n de autos
     while contador <= repeticiones:
         print("Cual es el ultimo digito de las placas del carro", contador);
         digito = int(input());
-        if (digito > 9) | (digito < 0):
+
+        while (digito > 9) | (digito < 0):
             print("Los valores deben estar entre 0 y 9");
-            digito = validarRango();
+            digito = int(input("Ingresa un valor dentro del rango\n"));
 
         if (digito == 1) | (digito == 2):
             amarillos += 1;
@@ -180,20 +150,25 @@ def menu():
         print("(0) Para salir\n");
 
         eleccion = int(input());
-        if (eleccion < 0) | (eleccion > 6):
+
+        while (eleccion < 0) | (eleccion > 6):
             print("El valor debe estar entre 0 y 6");
-            eleccion = validarMenu();
+            eleccion = int(input("Ingresa un valor dentro del rango\n"));
+
         if eleccion == 1:
             e1();
-        if eleccion == 2:
+        elif eleccion == 2:
             e2();
-        if eleccion == 3:
+        elif eleccion == 3:
             e3();
-        if eleccion == 4:
+        elif eleccion == 4:
             e4();
-        if eleccion == 5:
+        elif eleccion == 5:
             e5();
-        if eleccion == 6:
+        elif eleccion == 6:
             e6();
 
-menu();
+def imprimir():
+    menu();
+
+imprimir();
