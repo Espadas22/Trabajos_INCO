@@ -67,12 +67,17 @@ int main()
             moda = repeticiones[i];
     }
 
-    printf("\nLa moda es: ");
-
-    for (int i = 0; i < 9; i++)
+    if (moda == 1)
+        printf("\nEl conjunto no tiene moda");
+    else if (moda > 1)
     {
-        if (moda == repeticiones[i])
-            printf("%i ", valores[i]);
+        printf("\nLa moda es: ");
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (moda == repeticiones[i])
+                printf("%i ", valores[i]);
+        }
     }
 
 
