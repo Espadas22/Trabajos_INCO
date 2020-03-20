@@ -36,60 +36,72 @@ def validarCalificacion():
     return calificacion;
 
 def e01(): #Calculo de descuentos en un teatro segun edad
-    contador = 0;
-    tope = 1;
-    boleto = 80;
-    categoria_1 = categoria_2 = categoria_3 = categoria_4 = categoria_5 = 0;
+    for i in range(1):
+        def capturarCliente(): #funcion que se ejecuta cada que el usuario decida ingresar un nuevo cliente
+            contador_r = 0; #contador axuliar para registrar cambios dentro de la funcion
+            perdidas_r = 0; #contenedor auxuliar que guarda los descuentos aplicados dentro de la funcion;
+            boleto = 80;
+            
+            try:
+                edad = int(input("\nIngresa la edad del cliente:\n"));
 
-    for i in range(tope):
-        try:
-            edad = int(input("Ingresa la edad del cliente:\n"));
-
-            if edad < 0:
-                print("La edad no puede ser menor que cero");
+                if edad < 0:
+                    print("La edad no puede ser menor que cero");
+                    edad = validarValor();
+            except:
+                print("\nLa edad solo puede ser un numero entero");
                 edad = validarValor();
-        except:
-            print("La edad solo puede ser un numero entero");
-            edad = validarValor();
 
-        if edad < 5:
-            print("Lo sentimos, no ingresan menores de 5 años");
-        elif edad < 15:
-            precio = boleto*.65;
-            print("Categoria 1, tienes 35%% de descuento, paga solo %.2f" % (precio));
-            categoria_1 += boleto - precio;
-            contador += 1;
-        elif edad < 20:
-            precio = boleto*.75
-            print("Categoria 2, tienes 25%% de descuento, paga solo %.2f" % (precio));
-            categoria_2 += boleto - precio;
-            contador += 1;
-        elif edad < 46:
-            precio = boleto*.90;
-            print("Categoria 3, tienes 10%% de descuento, paga solo %.2f" % (precio));
-            categoria_3 += boleto - precio;
-            contador += 1;
-        elif edad < 65:
-            precio = boleto*.75
-            print("Categoria 4, tienes 25%% de descuento, paga solo %.2f" % (precio));
-            categoria_4 += boleto - precio;
-            contador += 1;
-        elif edad < 125:
-            precio = boleto*.65;
-            print("Categoria 5, tienes 35%% de descuento, paga solo %.2f" % (precio));
-            categoria_5 += boleto - precio;
-            contador += 1;
-        else:
-            print("Nadie ha vivido tanto, verifique sus datos")
+            if edad < 5:
+                print("\nLo sentimos, no ingresan menores de 5 años");
+            elif edad < 15:
+                precio = boleto*.65;
+                print("\nCategoria 1, tienes 35%% de descuento, paga solo %.2f" % (precio));
+                perdidas_r += boleto - precio;
+                contador_r += 1;
+            elif edad < 20:
+                precio = boleto*.75
+                print("\nCategoria 2, tienes 25%% de descuento, paga solo %.2f" % (precio));
+                perdidas_r += boleto - precio;
+                contador_r += 1;
+            elif edad < 46:
+                precio = boleto*.90;
+                print("\nCategoria 3, tienes 10%% de descuento, paga solo %.2f" % (precio));
+                perdidas_r += boleto - precio;
+                contador_r += 1;
+            elif edad < 65:
+                precio = boleto*.75
+                print("\nCategoria 4, tienes 25%% de descuento, paga solo %.2f" % (precio));
+                perdidas_r += boleto - precio;
+                contador_r += 1;
+            elif edad < 125:
+                precio = boleto*.65;
+                print("\nCategoria 5, tienes 35%% de descuento, paga solo %.2f" % (precio));
+                perdidas_r += boleto - precio;
+                contador_r += 1;
+            else:
+                print("\nNadie ha vivido tanto, verifique sus datos")
 
-        eleccion = str(input("Quieres ingresar otro usuario? (si/no)\n"));
+            eleccion = str(input("\nQuieres ingresar otro usuario? (si/no)\n"));
 
-        if (eleccion != "si") & (eleccion != "no"):
-            print("Las respuestas solo pueden ser 'si' o 'no'")
-            eleccion = validarEleccion();
+            if (eleccion != "si") & (eleccion != "no"):
+                print("Las respuestas solo pueden ser 'si' o 'no'")
+                eleccion = validarEleccion();
 
-        if eleccion == "si":
-            tope += 1;
+            if eleccion == "si":
+                contador_rr, perdidas_rr = capturarCliente(); #dentro cada llamado a la funcion se genera un contador y un descuento
+                contador_r += contador_rr; #que se suman a los anteriores
+                perdidas_r += perdidas_rr;
+                return contador_r, perdidas_r;
+            elif eleccion == "no":
+                return contador_r, perdidas_r; #y se regresan al metodo principal
+
+    contador, perdidas = capturarCliente();#aqui se reciben todas las variables acumuladas en la recurrencia
+    
+    #y se imprimen    
+    print("\nSe ingresaron un total de", contador, "clientes");
+    print("El total de descuentos otorgado por el teatro fue de %.2f pesos" % (perdidas))
+    
 
 def e02(): #Calculador de masa de aire en n vehiculos
     dsds
