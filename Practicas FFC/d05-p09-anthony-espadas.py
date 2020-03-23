@@ -17,6 +17,17 @@ def validarValor():
         valor = validarValor();
     return valor;
 
+def validarPositivo():
+    try:
+        valor = int(input("Introduce un valor valido\n"));
+        if valor < 1:
+            print("El valor debe ser un numero positivo");
+            valor = validarPositivo();
+    except:
+        print("Los valores deben ser numeros enteros");
+        valor = validarPositivo();
+    return valor;
+
 def validarEleccion():
     eleccion = str(input("Ingresa una respuesta valida\n"));
     if (eleccion != "si") & (eleccion != "no"):
@@ -103,9 +114,114 @@ def e01(): #Calculo de descuentos en un teatro segun edad
     print("El total de descuentos otorgado por el teatro fue de %.2f pesos" % (perdidas))
     
 
-def e02(): #Calculador de masa de aire en n vehiculos
-    dsds
+def e02(): #Calculador de masa promedio de aire en neumaticos
+    def validarVehiculo():#funcion que valida la eleccion a los vehiculos disponibles
+        eleccion = str(input("\nIngresa una opcion valida\n"));
 
+        if(eleccion != "moto") & (eleccion != "auto"):
+            print("Los resgistros solo pueden ser 'moto' o 'auto'");
+            eleccion = validarVehiculo();
+
+        return eleccion;
+
+    def validarTemperatura(): #se encarga de que la temperatura este dentro de un rango funcional
+        try:
+            temperatura = float(input("Dame un valor valido\n"));
+
+            if temperatura < -273.14:
+                print("La temperatura no puede estar por debajo del cero absoluto");
+                temperatura = validarTemperatura();
+            elif temperatura > 150:
+                print("Los neumatucos no pueden mantenerse a esa temperatura");
+                temperatura = validarTemperatura();
+
+        except:
+            print("La temperatura debe ser un numero\n");
+            temperatura = validarTemperatura();
+
+        return temperatura;
+    
+    def capturarLlanta(): #Registra la masa de aire en cada neumatico
+        try:
+            presion = float(input("Ingresa la presion:\n"));
+            if presion < 0:
+                print("La presion no puede ser menor que 0");
+                presion = validarValor();
+        except:
+            print("La presion debe ser u  numero");
+            presion = validarvalor();
+
+        try:
+            volumen = float(input("Ingresa su volumen:\n"));
+
+            if volumen < 1:
+                print("El columen debe ser positivo");
+                volumen = validarPositivo();
+        except:
+            print("El volumen tiene que ser un numero");
+            volumen = validarPositivo();
+
+        try:
+            temperatura = float(input("Ingresa su temperatura (en escala celsius):\n"));
+
+            if temperatura < -273.14:
+                print("La temperatura no puede estar por debajo del cero absoluto");
+                temperatura = validarTemperatura();
+            elif temperatura > 150:
+                print("Los neumaticos no pueden mantenerse a esa temperatura");
+                temperatura = validartemperatura();
+        except:
+            print("La temperatura debe ser un numero");
+            temperatura = validarTemperatura();
+
+        masa = (presion*volumen)/(.37*(temperatura + 460));
+
+        return masa;
+
+    def capturarVehiculo():#funcion principal del ejercicio, encargada de ejecutar las anteriores
+        vehiculo = str(input("\nQue vehiculo vamos a calcular? (moto/auto)\n"));
+
+        if (vehiculo != "moto") & (vehiculo != "auto"):
+            print("\nLos registros solo pueden ser 'moto' o 'auto'");
+            vehiculo = validarVehiculo();
+
+        if vehiculo == "moto": #Se asigna el numero de veces que el ciclo correra
+            repeticiones = 2;
+        elif vehiculo == "auto":
+            repeticiones = 4;
+
+        promedio = 0; #Guarda la masa de todas las llantas
+
+        for i in range(repeticiones): #cada ciclo registra el valor de una llanta y lo acumula
+            print("\nVamos a registrar la llanta", i+1);
+            promedio += capturarLlanta();
+
+        promedio = promedio / (repeticiones); #Se divide entre el numero de llantas para tener el promedio
+
+        print("\nEl promedio de masa de aire en los neumaticos de este vehiculo es: %.2f" % (promedio))
+
+        continuar = str(input("\nQuieres capturar otro vehiculo? (si/no)\n"));
+
+        if (continuar!= "si") & (continuar != "no"):
+            print("\nLas respuestas solo pueden ser 'si' o 'no'");
+            continuar = validarEleccion();
+
+        if continuar == "si":
+            capturarVehiculo();
+
+    capturarVehiculo();
+
+def e03(): #calcula el precio de kilo de huevo segun sea la calidad de las gallinas
+    pass;
+
+def e04(): #Calcula la postura de los diputados ante el TLC.
+    pass;
+
+def e05(): #realiza una sumas usando el sistema hexadecimal
+    pass;
+
+def e06(): #compara calificaciones de alumnos
+    pass;
 
 def menu():
     eleccion = 11;
@@ -131,7 +247,9 @@ def menu():
             except:
                 print("La eleccion solo puede ser un numero entero");
 
-        if eleccion == 1:
+        if eleccion == 0:
+            print("Que tengas un buen dia.")
+        elif eleccion == 1:
             e01();
         elif eleccion == 2:
             e02();
