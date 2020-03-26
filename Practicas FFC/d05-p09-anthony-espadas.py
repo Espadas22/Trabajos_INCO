@@ -212,10 +212,169 @@ def e02(): #Calculador de masa promedio de aire en neumaticos
     capturarVehiculo();
 
 def e03(): #calcula el precio de kilo de huevo segun sea la calidad de las gallinas
-    pass;
+    def validarPeso(): #centra el peso de las gallinas en un rango definido
+        try:
+            peso = float(input("Introduce un valor dentro de rango\n"));
+
+            if (peso < 1) | (altura > 2.3):
+                print("Las gallinas entre 1 y 2.3 kg");
+                peso = validarPeso();
+
+        except:
+            print("El peso debe ser un numero");
+            peso = validarPeso();
+
+        return peso;
+            
+
+    def validarAltura():#centra la altura de las gallianas en un rango definido
+        try:
+            altura = float(input("Introduce un valor dentro de rango\n"));
+
+            if (altura < 25) | (altura > 40):
+                print("Las gallinas miden entre 25 y 40 cm");
+                altura = validarAltura();
+        except:
+            print("La altura debe ser un numero");
+            altura = validarAltura();
+
+        return altura;
+
+    def validarHuevos():#centra el numero de huevos por semana en un rango definido
+        try:
+            huevos = int(input("Cuantos huevos pone a la semana?\n"));
+
+            if (huevos < 0) | (huevos > 7):
+                print("Las gallinas no pueden poner mas de un huevo al dia");
+                huevos =ValidarHuevos();
+        except:
+            print("La cantidad de huevos debe ser un numero");
+            huevos = validarHuevos();
+
+        return huevos;
+
+    try:
+        gallinas = int(input("Cuantas gallinas vamos a evaluar?\n"));
+
+        if gallinas < 1:
+            print("Se debe avaluar por lo menos una gallina");
+            gallinas = validarPositivo();
+
+    except:
+        print("La cantidad de gallinas debe ser un numero");
+        gallinas = validarPositivo();
+
+    promedio = 0;
+
+    for i in range(gallinas):
+        try:#Bloque try/except que captura la altura
+            print("Dame la altura de la gallina", i+1, "en centimetros");
+            altura = float(input());
+
+            if (altura < 25) | (altura > 40):
+                print("Las gallinas miden entre 25 y 40 cm");
+                altura = validarAltura();
+        except:
+            print("La altura debe ser un numero");
+            altura = validarAltura();
+
+        try:#Bloque try/except que captura el peso
+            print("Introduce el peso de la gallina", i+1,"en kg");
+            peso = float(input());
+
+            if (peso < 1) | (peso > 2.3):
+                print("Las gallinas entre 1 y 2.3 kg");
+                peso = validarPeso();
+
+        except:
+            print("El peso debe ser un numero");
+            peso = validarPeso();
+
+        try:#Bloque try/except que captura la cantidad de huevos que pone la gallina
+            huevos = int(input("Cuantos huevos pone a la semana?\n"));
+
+            if (huevos < 0) | (huevos > 7):
+                print("Las gallinas no pueden poner mas de un huevo al dia");
+                huevos =ValidarHuevos();
+        except:
+            print("La cantidad de huevos debe ser un numero");
+            huevos = validarHuevos();
+
+        calidad = peso*altura/huevos;
+
+        print("La calidad de la gallina %.0f es %.2f" % (i+1, calidad));
+                                                         
+        promedio += calidad;
+
+    promedio = promedio /gallinas;
+
+    if promedio <= 8:
+        precio = promedio*.8;
+    elif promedio < 15:
+        precio = promedio;
+    elif promedio > 15:
+        precio = promedio*1.2;
+
+    print("El promedio de caliad de las gallinas es de %.2f, el precio por kilo podra darse en %2.f peso" % (promedio, calidad));
+        
 
 def e04(): #Calcula la postura de los diputados ante el TLC.
-    pass;
+    def validarRespuesta():
+        respuesta = str(input("Responda solo con 'si', 'no' o 'paso'\n"));
+
+        if (respuesta != "si") & (respuesta != "no") & (respuesta != "paso"):
+            respuesta = validarRespuesta();
+
+        return respuesta;
+
+    def capturarDiputado():#Funcion que captura la respuesta del diputado
+        diputados_r = 1;
+        favor_r = 0;#variables auxiliares que registran el cambio
+        contra_r = 0;#cada que se llama a la funcion
+        abstemios_r = 0;
+        
+        print("Esta a favor de El Tratado de Libre Comercio?");
+        respuesta = str(input("Responder solo con 'si', 'no' o 'paso'\n"));
+
+        if (respuesta != "si") & (respuesta != "no") & (respuesta != "paso"):
+            respuesta = validarRespuesta();
+
+        if respuesta == "si":
+            favor_r += 1;
+        elif respuesta == "no":
+            contra_r += 1;
+        elif respuesta == "paso":
+            abstemios_r += 1;
+
+        eleccion = str(input("Quieres registrar otra respuesta?\n"));
+
+        if (eleccion != "si") & (eleccion != "no"):
+            print("responde solo 'si o 'no'");
+            eleccion = validarEleccion();
+
+        if eleccion == "si":
+            diputados_rr, favor_rr, contra_rr, abstemios_rr = capturarDiputado();
+            diputados_r += diputados_rr;#Se almacena toda la recurrencia
+            favor_r += favor_rr;#En las variables 'rr'
+            contra_r += contra_rr;#Y se suma a las locales
+            abstemios_r += abstemios_rr;#Para ser regresadas al final de la recurrencia.
+            return diputados_r, favor_r, contra_r, abstemios_r;
+        elif eleccion == "no":
+            return diputados_r, favor_r, contra_r, abstemios_r;
+
+    diputados, favor, contra, abstemios = capturarDiputado();#Estas variables reciben todos losa datos
+    favor = favor*100/diputados;
+    contra = contra*100/diputados;
+    abstemios = abstemios*100/diputados;
+
+    print("De los", diputados, "diputados:");
+    if favor > 0:
+        print("%2.f %% estan a favor del TLC" % (favor));
+    if contra > 0:
+        print("%2.f %% estan en contra del TLC" % (contra));
+    if abstemios > 0:
+        print("%2.f %% se abstuvieron de opinar" % (abstemios));
+        
 
 def e05(): #realiza una sumas usando el sistema hexadecimal
     pass;
