@@ -380,7 +380,57 @@ def e05(): #realiza una sumas usando el sistema hexadecimal
     pass;
 
 def e06(): #compara calificaciones de alumnos
-    pass;
+    alumnos = int(input("Agrega la cantidad de alumnos en el grupo\n"));
+    promedio = 0;
+    promedio_maximo = 0;
+    str_maximo = "";
+    str_alumnos = "";
+    mejor_alunmo = 0;
+    empate = 0;
+    
+
+    if alumnos < 1:
+        print("Se debe registrar al menos una calificacion");
+        alumnos = validarPositivo();
+
+    for i in range(alumnos):
+        promedio = 0;
+        
+        for j in range(3):
+            print("Dame la calificacion", j+1, "del alumno", i+1);
+
+            try:
+                calificacion = float(input());
+
+                if (calificacion < 0) | (calificacion > 100):
+                    print("La calificacion debe estar entre 0 y 100");
+                    calificacion = validarCalificacion();
+            except:
+                print("La calificacion debe ser un numero");
+                calificacion = validarCalificacion();
+
+            promedio += calificacion;
+
+        promedio = promedio/3;
+
+        print("\nEL promedio del alumno %.0f es %.2f" % (i+1, promedio));
+
+        if promedio > promedio_maximo:
+            empate = 0;
+            promedio_maximo = promedio;
+            mejor_alumno = i+1;
+            str_maximo = "";
+            str_alumnos = str(i+1) + ", ";
+        elif promedio == promedio_maximo:
+            empate = 1;
+            str_maximo = str(promedio_maximo);
+            str_alumnos += str(i+1) + ", ";
+
+    if empate == 0:
+        print("\nEl mayor promedio fue %.2f del alumno %.0f" % (promedio_maximo, mejor_alumno));
+    elif empate == 1:
+        print("\nEmpate!")
+        print("El mayor promedio fue", str_maximo, "de los alumnos", str_alumnos);
 
 def menu():
     eleccion = 11;
