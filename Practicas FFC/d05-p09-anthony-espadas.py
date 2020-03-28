@@ -216,7 +216,7 @@ def e03(): #calcula el precio de kilo de huevo segun sea la calidad de las galli
         try:
             peso = float(input("Introduce un valor dentro de rango\n"));
 
-            if (peso < 1) | (altura > 2.3):
+            if (peso < 1) | (peso > 2.3):
                 print("Las gallinas entre 1 y 2.3 kg");
                 peso = validarPeso();
 
