@@ -35,11 +35,11 @@ def e1():
         
         distancia = 0; #Genera la separacion entre los bordes
 
-        for i in range(x, x + 11):#Genera una altura de 10 lineas
-            for j in range(y - distancia, y + distancia): #Abre distancia de los lados segun se acerca a la base
-                if i == x or i == x + 10: #Valida estar en la primer o ultima linea
+        for i in range(y, y + 11):#Genera una altura de 10 lineas
+            for j in range(x - distancia, x + distancia): #Abre distancia de los lados segun se acerca a la base
+                if i == y or i == y + 10: #Valida estar en la primer o ultima linea
                     print(Cursor.POS(j, i) + "*", end=""); 
-                elif j == y - distancia or j == y + distancia -1: #Valida estar en los extremos
+                elif j == x - distancia or j == x + distancia -1: #Valida estar en los extremos
                     print(Cursor.POS(j, i) + "*", end=""); 
             
             distancia += 1; 
@@ -48,11 +48,11 @@ def e1():
         from colorama import init, Fore, Cursor;
         init(); 
 
-        for i in range(x, x + 11): #Genera lado de 10 lineas
-            for j in range(y, y + 21): #Genera lado de 20 columnas
-                if i == x or i == x + 10: #Revisa que nos encontremos en los bordes
+        for i in range(y, y + 11): #Genera lado de 10 lineas
+            for j in range(x, x + 21): #Genera lado de 20 columnas
+                if i == y or i == y + 10: #Revisa que nos encontremos en los bordes
                     print(Cursor.POS(j, i) + "*", end=""); 
-                elif j == y or j == y + 20: #E imprime el asterisco
+                elif j == x or j == x + 20: #E imprime el asterisco
                     print(Cursor.POS(j, i) + "*", end=""); 
 
     def moverCirculo(x, y, c):
@@ -72,11 +72,11 @@ def e1():
     imprimirDatos(); #Imprime los datos de referencia al usuario
     
     #Posiciones en X y Y de las figuras
-    triangulo_x = 12; 
-    triangulo_y = 59; 
+    triangulo_x = 59; 
+    triangulo_y = 12; 
     
-    cuadrado_x = 12; 
-    cuadrado_y = 10; 
+    cuadrado_x = 10; 
+    cuadrado_y = 12; 
 
     circulo_x = 85; 
     circulo_y = 12; 
