@@ -3,47 +3,36 @@
 #mariscal cervantes diego maximiliano
 
 def e1():
+    from colorama import init, Fore, Style, Cursor;
+    init(autoreset=True);
+
     def imprimirDatos():
-        from colorama import init, Fore;
-        init();
         print(Fore.MAGENTA + "practica 10");
-        print("espadas rodriguez anthony jonathan");
-        print("mariscal cervantes diego maximiliano\n" + Fore.RESET);
+        print(Fore.MAGENTA + "espadas rodriguez anthony jonathan");
+        print(Fore.MAGENTA + "mariscal cervantes diego maximiliano\n" + Fore.RESET);
         print(Fore.CYAN + "Selecciona: ", end="");
-        print("\b (1)Triangulo ", end=""); 
-        print("\b (2)Cuadrado ", end=""); 
-        print("\b (3)Circulo ", end=""); 
-        print("\b (0)Salir ", end="" + Fore.RESET);
-        print("\b ||", end=" ");
+        print(Fore.CYAN + "\b (1)Cuadrado ", end=""); 
+        print(Fore.CYAN + "\b (2)Triangulo ", end=""); 
+        print(Fore.CYAN + "\b (3)Circulo ", end=""); 
+        print(Fore.CYAN + "\b (0)Salir ", end="");
+        print(Fore.CYAN + "\b ||", end=" ");
         print(Fore.CYAN + "Usa las flechas para mover la figura seleccionada\n" + Fore.RESET); 
     
     def dibujarArea(): #Dibuja el cuadrado que delimita las figuras
-        from colorama import init, Fore, Style, Cursor;
-        init(autoreset=True); 
-        
         for i in range(7, 30):
             for j in range(120):
                 if i == 7 or i == 29 or j == 0 or j == 119: #Valida estar en la primer o ultima linea
                     print(Fore.WHITE + Style.BRIGHT + Cursor.POS(j,i) + "*");
                     
     #Funciones que se encargan de dibujar el asterisco del color corresponiente
-    def asteriscoVerde(i, j): 
-        from colorama import init, Fore, Style, Cursor;
-        init(autoreset=True); 
-             
-        print(Fore.GREEN + Style.BRIGHT + Cursor.POS(j, i) + "*"); 
+    def asteriscoVerde(i, j):      
+        print(Fore.GREEN + Style.BRIGHT + Cursor.POS(j, i) + "*");
 
     def asteriscoRojo(i, j): 
-        from colorama import init, Fore, Style, Cursor;
-        init(autoreset=True); 
-             
-        print(Fore.RED + Style.BRIGHT + Cursor.POS(j, i) + "*");   
+        print(Fore.RED + Style.DIM + Cursor.POS(j, i) + ".");   
 
     def asteriscoAmarillo(i, j): 
-        from colorama import init, Fore, Style, Cursor;
-        init(autoreset=True); 
-             
-        print(Fore.YELLOW + Style.BRIGHT + Cursor.POS(j, i) + "*"); 
+        print(Fore.YELLOW + Style.DIM + Cursor.POS(j, i) + "."); 
 
     def moverTriangulo(columna, linea, color): #Se encarga de dibujar al triangulo en consola
         distancia = 0; #Genera la separacion entre los bordes
@@ -57,6 +46,8 @@ def e1():
                         asteriscoAmarillo(i, j); 
                     elif color == 3:
                         asteriscoRojo(i, j); 
+                    else:
+                        print(Fore.WHITE + Style.DIM + Cursor.POS(j, i) + "."); 
                 elif j == columna - distancia or j == columna + distancia -1: #Valida estar en los extremos
                     if color == 1:
                         asteriscoVerde(i, j); 
@@ -64,6 +55,8 @@ def e1():
                         asteriscoAmarillo(i, j); 
                     elif color == 3:
                         asteriscoRojo(i, j); 
+                    else:
+                        print(Fore.WHITE + Style.DIM + Cursor.POS(j, i) + "."); 
             
             distancia += 1; 
 
@@ -111,7 +104,7 @@ def e1():
                         asteriscoRojo(i, j); 
 
 
-    imprimirDatos(); #Imprime los datos de referencia al usuario
+    imprimirDatos(); #Imprime los datos de referencia para el usuario
     
     #Posiciones en X y Y de las figuras
     triangulo_x = 59; 
@@ -126,11 +119,30 @@ def e1():
     dibujarArea(); #Dibujamos el area del programa
     
     #Mostramos las figuras en su posicion y color por defecto
-    moverTriangulo(triangulo_x, triangulo_y, 1); 
+    moverTriangulo(triangulo_x, triangulo_y, 4);  
     moverCuadrado(cuadrado_x, cuadrado_y, 2); 
     moverCirculo(circulo_x, circulo_y, 3); 
 
+    seleccion = 4; 
 
+    while seleccion != 0:
+        seleccion = int(input()); 
+
+        if seleccion == 1:
+            dibujarArea();    
+            moverCuadrado(cuadrado_x, cuadrado_y, 1); 
+            moverCirculo(circulo_x, circulo_y, 2); 
+            moverTriangulo(triangulo_x, triangulo_y, 3); 
+        elif seleccion == 2: 
+            dibujarArea(); 
+            moverTriangulo(triangulo_x, triangulo_y, 1); 
+            moverCirculo(circulo_x, circulo_y, 2); 
+            moverCuadrado(cuadrado_x, cuadrado_y, 3);  
+        elif seleccion == 3:
+            dibujarArea(); 
+            moverCirculo(circulo_x, circulo_y, 1); 
+            moverTriangulo(triangulo_x, triangulo_y, 2); 
+            moverCuadrado(cuadrado_x, cuadrado_y, 3);   
 
     input(); 
 
