@@ -45,69 +45,69 @@ def e1():
              
         print(Fore.YELLOW + Style.BRIGHT + Cursor.POS(j, i) + "*"); 
 
-    def moverTriangulo(x, y, c): #Se encarga de dibujar al triangulo en consola
+    def moverTriangulo(columna, linea, color): #Se encarga de dibujar al triangulo en consola
         distancia = 0; #Genera la separacion entre los bordes
 
-        for i in range(y, y + 11):#Genera una altura de 10 lineas
-            for j in range(x - distancia, x + distancia): #Abre distancia de los lados segun se acerca a la base
-                if i == y or i == y + 10: #Valida estar en la primer o ultima linea 
-                    if c == 1:
+        for i in range(linea, linea + 11):#Genera una altura de 10 lineas
+            for j in range(columna - distancia, columna + distancia): #Abre distancia de los lados segun se acerca a la base
+                if i == linea or i == linea + 10: #Valida estar en la primer o ultima linea 
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
-                elif j == x - distancia or j == x + distancia -1: #Valida estar en los extremos
-                    if c == 1:
+                elif j == columna - distancia or j == columna + distancia -1: #Valida estar en los extremos
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
             
             distancia += 1; 
 
-    def moverCuadrado(x, y, c): #Se encarga de dibujar al cuadrado en consola
-        for i in range(y, y + 11): #Genera lado de 10 lineas
-            for j in range(x, x + 21): #Genera lado de 20 columnas
-                if i == y or i == y + 10: #Revisa que nos encontremos en los bordes
-                    if c == 1:
+    def moverCuadrado(columna, linea, color): #Se encarga de dibujar al cuadrado en consola
+        for i in range(linea, linea + 11): #Genera lado de 10 lineas
+            for j in range(columna, columna + 21): #Genera lado de 20 columnas
+                if i == linea or i == linea + 10: #Revisa que nos encontremos en los bordes
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
-                elif j == x or j == x + 20: #E imprime el asterisco
-                    if c == 1:
+                elif j == columna or j == columna + 20: #E imprime el asterisco
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
 
-    def moverCirculo(x, y, c):
-        for i in range(y, y + 11):
-            for j in range(x, x + 21):
-                if (i == y or i == y + 10) and (j > x + 2 and j < x + 17): #Verificamos estar en borde horizontal
-                    if c == 1:
+    def moverCirculo(columna, linea, color):
+        for i in range(linea, linea + 11):
+            for j in range(columna, columna + 21):
+                if (i == linea or i == linea + 10) and (j > columna + 2 and j < columna + 17): #Verificamos estar en borde horizontal
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
-                elif (j == x or j == x + 19) and (i > y + 1 and i < y + 9): #Verifcamos estar en un borde vertical
-                    if c == 1:
+                elif (j == columna or j == columna + 19) and (i > linea + 1 and i < linea + 9): #Verifcamos estar en un borde vertical
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
-                elif (j == x + 1 and i == y + 1) or (j == x + 1 and i == y + 9) or (j == x + 18 and i == y + 1) or (j == x + 18 and i == y + 9): #Verificamos estar en una esquina
-                    if c == 1:
+                elif (j == columna + 1 and i == linea + 1) or (j == columna + 1 and i == linea + 9) or (j == columna + 18 and i == linea + 1) or (j == columna + 18 and i == linea + 9): #Verificamos estar en una esquina
+                    if color == 1:
                         asteriscoVerde(i, j); 
-                    elif c == 2:
+                    elif color == 2:
                         asteriscoAmarillo(i, j); 
-                    elif c == 3:
+                    elif color == 3:
                         asteriscoRojo(i, j); 
 
 
@@ -129,6 +129,8 @@ def e1():
     moverTriangulo(triangulo_x, triangulo_y, 1); 
     moverCuadrado(cuadrado_x, cuadrado_y, 2); 
     moverCirculo(circulo_x, circulo_y, 3); 
+
+
 
     input(); 
 
