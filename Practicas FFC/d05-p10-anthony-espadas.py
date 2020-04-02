@@ -8,16 +8,20 @@ def e1():
     init(autoreset=True); 
 
     def imprimirDatos():
-        print(Fore.MAGENTA + "practica 10");
-        print(Fore.MAGENTA + "espadas rodriguez anthony jonathan");
-        print(Fore.MAGENTA + "mariscal cervantes diego maximiliano\n");
-        print(Fore.CYAN + "Selecciona: ", end="");
+        print(Cursor.POS(1,1) + Fore.MAGENTA + "practica 10");
+        print(Cursor.POS(1,2) + Fore.MAGENTA + "espadas rodriguez anthony jonathan");
+        print(Cursor.POS(1,3) + Fore.MAGENTA + "mariscal cervantes diego maximiliano\n");
+        
+        for i in range (1,6):
+            print(Cursor.POS(55, i) + Fore.WHITE + "\b ||", end=" ");
+        
+        print(Cursor.POS(60,2) + Fore.CYAN + "Selecciona: ", end="");
         print(Fore.CYAN + "\b (1)Cuadrado ", end=""); 
         print(Fore.CYAN + "\b (2)Triangulo ", end=""); 
         print(Fore.CYAN + "\b (3)Circulo ", end=""); 
         print(Fore.CYAN + "\b (0)Salir ", end="");
-        print(Fore.WHITE + "\b ||", end=" ");
-        print(Fore.CYAN + "Usa las direcciones W A S D para mover la figura\n"); 
+        print(Cursor.POS(60, 3) + Fore.CYAN + "Usa las direcciones W A S D para mover la figura", end="");
+        print(Cursor.POS(60, 4) + Fore.CYAN + "(NO olvides presionar 'enter despues de cada instruccion'\n"); 
     
     def dibujarArea(): #Dibuja el cuadrado que delimita las figuras
         for i in range(7, 30):
