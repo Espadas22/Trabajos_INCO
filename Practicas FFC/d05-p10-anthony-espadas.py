@@ -3,6 +3,7 @@
 #mariscal cervantes diego maximiliano
 
 def e1():
+    import sys; 
     from colorama import init, Fore, Style, Cursor;
     init(autoreset=True);
 
@@ -15,7 +16,7 @@ def e1():
         print(Fore.CYAN + "\b (2)Triangulo ", end=""); 
         print(Fore.CYAN + "\b (3)Circulo ", end=""); 
         print(Fore.CYAN + "\b (0)Salir ", end="");
-        print(Fore.CYAN + "\b ||", end=" ");
+        print(Fore.WHITE + "\b ||", end=" ");
         print(Fore.CYAN + "Usa las flechas para mover la figura seleccionada\n"); 
     
     def dibujarArea(): #Dibuja el cuadrado que delimita las figuras
@@ -102,10 +103,32 @@ def e1():
                         asteriscoAmarillo(i, j); 
                     elif color == 3:
                         asteriscoRojo(i, j); 
-
-
-    imprimirDatos(); #Imprime los datos de referencia para el usuario
     
+    #Funciones que dibujan la pantalla segun la figura seleccionada
+    def pintarPantallaCuadrado(cuadrado_x, cuadrado_y, color_cuadrado, triangulo_x, triangulo_y, color_triangulo, circulo_x, circulo_y, color_circulo):
+        print('\x1b[2J', end = ""); 
+        imprimirDatos(); 
+        dibujarArea();  
+        moverTriangulo(triangulo_x, triangulo_y, color_triangulo); 
+        moverCirculo(circulo_x, circulo_y, color_circulo); 
+        moverCuadrado(cuadrado_x, cuadrado_y, color_cuadrado); 
+
+    def pintarPantallaTriangulo(cuadrado_x, cuadrado_y, color_cuadrado, triangulo_x, triangulo_y, color_triangulo, circulo_x, circulo_y, color_circulo):
+        print('\x1b[2J', end = ""); 
+        imprimirDatos(); 
+        dibujarArea(); 
+        moverCuadrado(cuadrado_x, cuadrado_y, color_cuadrado);  
+        moverCirculo(circulo_x, circulo_y, color_circulo); 
+        moverTriangulo(triangulo_x, triangulo_y, color_triangulo);  
+
+    def pintarPantallaCirculo(cuadrado_x, cuadrado_y, color_cuadrado, triangulo_x, triangulo_y, color_triangulo, circulo_x, circulo_y, color_circulo):
+        print('\x1b[2J', end = ""); 
+        imprimirDatos(); 
+        dibujarArea(); 
+        moverCuadrado(cuadrado_x, cuadrado_y, color_cuadrado);  
+        moverTriangulo(triangulo_x, triangulo_y, color_triangulo);
+        moverCirculo(circulo_x, circulo_y, color_circulo); 
+
     #Posiciones en X y Y de las figuras
     triangulo_x = 59; 
     triangulo_y = 12; 
@@ -116,35 +139,64 @@ def e1():
     circulo_x = 85; 
     circulo_y = 12; 
 
-    dibujarArea(); #Dibujamos el area del programa
-    
-    #Mostramos las figuras en su posicion y color por defecto
-    moverTriangulo(triangulo_x, triangulo_y, 4);  
-    moverCuadrado(cuadrado_x, cuadrado_y, 2); 
-    moverCirculo(circulo_x, circulo_y, 3); 
+    pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 2, triangulo_x, triangulo_y, 4, circulo_x, circulo_y, 3); 
 
-    seleccion = 4; 
+    seleccion = "4"; #Variable que toma los valores introducidos por el usuario
 
-    while seleccion != 0:
-        seleccion = int(input()); 
+    figura = ""; #Variable que guarda la figura seleccionada
 
-        if seleccion == 1:
-            dibujarArea();    
-            moverCuadrado(cuadrado_x, cuadrado_y, 1); 
-            moverTriangulo(triangulo_x, triangulo_y, 2); 
-            moverCirculo(circulo_x, circulo_y, 3); 
-        elif seleccion == 2: 
-            dibujarArea(); 
-            moverTriangulo(triangulo_x, triangulo_y, 1); 
-            moverCirculo(circulo_x, circulo_y, 2); 
-            moverCuadrado(cuadrado_x, cuadrado_y, 3);  
-        elif seleccion == 3:
-            dibujarArea(); 
-            moverCirculo(circulo_x, circulo_y, 1); 
-            moverTriangulo(triangulo_x, triangulo_y, 2); 
-            moverCuadrado(cuadrado_x, cuadrado_y, 3);   
+    while seleccion != "0":
+        seleccion = sys.stdin.read(1);  
 
-    input(); 
+        if seleccion == "1": #Determina si se eligio el cuadrado
+            pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3); 
+            figura = "cuadrado"; 
+        elif seleccion == "2": #Determina si se eligio el triangulo
+            pintarPantallaTriangulo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 1, circulo_x, circulo_y, 2); 
+            figura = "triangulo";   
+        elif seleccion == "3": #determina si se eligio el circulo
+            pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1); 
+            figura = "circulo"; 
+        elif seleccion == "W" or seleccion == "w": #Se movera la sigura seleccionada hacia arriba
+            if figura == "cuadrado":
+                cuadrado_y -= 1; 
+                pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3); 
+            elif figura == "triangulo":
+                triangulo_y -= 1; 
+                pintarPantallaTriangulo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 1, circulo_x, circulo_y, 2); 
+            elif figura == "circulo": 
+                circulo_y -= 1; 
+                pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1); 
+        elif seleccion == "S" or seleccion == "s": #Se movera la figura seleccionada hacia abajo
+            if figura == "cuadrado":
+                cuadrado_y += 1; 
+                pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3); 
+            elif figura == "triangulo":
+                triangulo_y += 1; 
+                pintarPantallaTriangulo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 1, circulo_x, circulo_y, 2); 
+            elif figura == "circulo": 
+                circulo_y += 1; 
+                pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1); 
+        elif seleccion == "A" or seleccion == "a": #Se movera la figura seleccionada a la izquierda
+            if figura == "cuadrado":
+                cuadrado_x -= 2; 
+                pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3); 
+            elif figura == "triangulo":
+                triangulo_x -= 2; 
+                pintarPantallaTriangulo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 1, circulo_x, circulo_y, 2); 
+            elif figura == "circulo": 
+                circulo_x -= 2; 
+                pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1); 
+        elif seleccion == "D" or seleccion == "d": #Se movera la figura seleccionada a la derecha
+            if figura == "cuadrado":
+                cuadrado_x += 2; 
+                pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3); 
+            elif figura == "triangulo":
+                triangulo_x += 2; 
+                pintarPantallaTriangulo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 1, circulo_x, circulo_y, 2); 
+            elif figura == "circulo": 
+                circulo_x += 2; 
+                pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1); 
 
 def imprimir():
     e1(); 
