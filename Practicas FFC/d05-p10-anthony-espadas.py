@@ -27,9 +27,10 @@ def e1():
                     
     #Funcion que se encarga de dibujar el asterisco del color corresponiente
     def dibujarAsterisco(linea, columna, color): 
-        linea = ((linea + 7) % 22) + 7; 
-        columna = (columna % 119); 
-
+        linea = ((linea + 7) % 22) + 7; #Delimita el asterisco en el eje y
+        columna = (columna % 119); #Delimita el asterisco en el eje x
+        
+        #Imprime el asterisco segun la situacion de la figura
         if color == 1:
             print(Fore.GREEN + Style.BRIGHT + Cursor.POS(columna, linea) + "*"); 
         elif color == 2:
@@ -133,7 +134,7 @@ def e1():
         moverCirculo(circulo_x, circulo_y, color_circulo); 
         dibujarArea(); 
 
-    #Posiciones en X y Y de las figuras
+    #Posiciones iniciales en X y Y de las figuras
     triangulo_x = 59; 
     triangulo_y = 21; 
     
@@ -142,7 +143,8 @@ def e1():
 
     circulo_x = 85; 
     circulo_y = 21; 
-
+    
+    #Primer dibujado de pantalla
     pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 2, triangulo_x, triangulo_y, 4, circulo_x, circulo_y, 3); 
 
     seleccion = "4"; #Variable que toma los valores introducidos por el usuario
@@ -150,7 +152,7 @@ def e1():
     figura = ""; #Variable que guarda la figura seleccionada
 
     while seleccion != "0":
-        seleccion = sys.stdin.read(1);  
+        seleccion = str(input());  
 
         if seleccion == "1": #Determina si se eligio el cuadrado
             pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3); 
@@ -201,6 +203,17 @@ def e1():
             elif figura == "circulo": 
                 circulo_x += 2; 
                 pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1); 
+        else: #En caso de recibir un input distinto a los programados
+            print('\x1b[2J', end = ""); 
+            print(Cursor.POS(1, 30)); 
+            if figura == "":
+                pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 2, triangulo_x, triangulo_y, 4, circulo_x, circulo_y, 3);
+            elif figura == "cuadrado": 
+                pintarPantallaCuadrado(cuadrado_x, cuadrado_y, 1, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 3);
+            elif figura == "triangulo":
+                pintarPantallaTriangulo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 1, circulo_x, circulo_y, 2);
+            elif figura == "circulo":
+                pintarPantallaCirculo(cuadrado_x, cuadrado_y, 3, triangulo_x, triangulo_y, 2, circulo_x, circulo_y, 1);
 
 def imprimir():
     e1(); 
