@@ -5,7 +5,6 @@
 char *cadena = NULL;
 char *descodificada = NULL;
 int registro = 0;
-int repeticiones;
 
 int main ()
 {
@@ -37,41 +36,8 @@ int main ()
     //ciclo for que recorre la cadena
     for (int i = 0; i < longitud; i += 2)
     {
-        //Evaluamos las repeticiones indicadas en la cadena
-        switch (cadena[i])
-        {
-            case '1':
-                repeticiones = 1;
-                break;
-            case '2':
-                repeticiones = 2;
-                break;
-            case '3':
-                repeticiones = 3;
-                break;
-            case '4':
-                repeticiones = 4;
-                break;
-            case '5':
-                repeticiones = 5;
-                break;
-            case '6':
-                repeticiones = 6;
-                break;
-            case '7':
-                repeticiones = 7;
-                break;
-            case '8':
-                repeticiones = 8;
-                break;
-            case '9':
-                repeticiones = 9;
-                break;
-            default:
-                repeticiones = 0;
-        }
-        //Ciclo for que agrega la letra seguun marque la posicion
-        for (int j = 0; j < repeticiones; j++)
+        //Ciclo for que agrega la letra seuun marque la posicion
+        for (int j = 0; j < cadena[i] - 48; j++)
         {
 
             //Se guarda la letra en la cadena descodificada
