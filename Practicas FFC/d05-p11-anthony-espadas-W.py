@@ -21,200 +21,118 @@ def e1():
     def asterisco(posicion_x, posicion_y):
         print(Cursor.POS(posicion_x, posicion_y) + "*");
 
-    def dibujar_A(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y == 0 and eje_x == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 2:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y > 0 and (eje_x == 0 or eje_x == 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_A(eje_x, eje_y):
+        if (eje_y == 0 and eje_x == 1) or (eje_y == 2) or (eje_y > 0 and eje_x % 2 == 0):
+            return True;
     
-    def dibujar_B(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 2 == 0) and (eje_x < 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif (eje_y % 2 != 0) and (eje_x == 0 or eje_x == 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_B(eje_x, eje_y):
+        if (eje_y % 2 == 0 and eje_x < 2) or (eje_y % 2 != 0 and (eje_x == 0 or eje_x == 2)):
+            return True;
     
-    def dibujar_C(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y == 0 or eje_y == 4) and (eje_x > 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif (eje_y > 0 and eje_y < 4) and (eje_x == 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_C(eje_x, eje_y):
+        if (eje_y % 4 == 0 and eje_x > 0) or (eje_y % 4 != 0 and eje_x == 0):
+            return True;
 
-    def dibujar_D(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y == 0 or eje_y == 4) and (eje_x < 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif (eje_y > 0 and eje_y < 4) and (eje_x == 0 or eje_x == 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_D(eje_x, eje_y):
+        if (eje_x == 0) or (eje_y % 4 == 0 and eje_x == 1) or (eje_y % 4 != 0 and eje_x == 2):
+            return True;
 
-    def dibujar_E(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 2 == 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif (eje_y % 2 != 0) and (eje_x == 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_E(eje_x, eje_y):
+        if (eje_y % 2 == 0) or (eje_y % 2 != 0 and eje_x == 0):
+            return True;
 
-    def dibujar_F(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 2 and eje_x < 2:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_x == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_F(eje_x, eje_y):
+        if (eje_y == 0) or (eje_y == 2 and eje_x < 2) or (eje_x == 0):
+            return True;
     
-    def dibujar_G(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y % 2 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 1 and eje_x % 2 == 0 :
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_x == 2:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_G(eje_x, eje_y):
+        if (eje_y % 2 == 0) or (eje_y == 1 and eje_x % 2 == 0) or (eje_x == 2):
+            return True;
 
-    def dibujar_H(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_x % 2 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 2:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_H(eje_x, eje_y):
+        if eje_x % 2 == 0 or eje_y == 2:
+            return True;
 
-    def dibujar_I(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y % 4 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_x == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_I(eje_x, eje_y):
+        if eje_y % 4 == 0 or eje_x == 1:
+            return True;
 
-    def dibujar_J(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y % 4 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_x == 2:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 3 and eje_x == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_J(eje_x, eje_y):
+        if (eje_y % 4 == 0) or (eje_x == 2) or (eje_y == 3 and eje_x == 0):
+            return True;
 
-    def dibujar_K(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y % 4 == 0 and eje_x % 2 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y % 2 != 0 and eje_x == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_x == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
+    def parametros_K(eje_x, eje_y):
+        if (eje_y % 4 == 0 and eje_x % 2 == 0) or (eje_y % 2 != 0 and eje_x == 1) or (eje_x == 0):
+            return True;
     
-    def dibujar_L(inicio_x, inicio_y):
+    def parametros_L(eje_x, eje_y):
+        if eje_x == 0 or eje_y == 4:
+            return True;
+
+    def parametros_M(eje_x, eje_y):
+        if eje_x % 2 == 0 or eje_y == 1:
+            return True;
+
+    def parametros_N(eje_x, eje_y):
+        if (eje_x % 2 == 0 and eje_y > 0) or eje_y == 1:
+            return True;
+
+    def parametros_O(eje_x, eje_y):
+        if (eje_y % 4 == 0 and eje_x == 1) or (eje_y % 4 != 0 and eje_x % 2 == 0):
+            return True;
+
+    def parametros_P(eje_x, eje_y):
+        if (eje_y % 2 == 0 and eje_y < 3) or (eje_y < 3 and eje_x % 2 == 0) or (eje_x == 0):
+            return True;
+
+    def parametros_Q(eje_x, eje_y):
+        if (eje_y % 2 == 0 and eje_y < 3) or (eje_y < 3 and eje_x % 2 == 0) or (eje_x == 2):
+            return True;
+
+    def parametros_R(eje_x, eje_y):
+        if (eje_y % 2 == 0 and eje_y < 3) or (eje_x == 0) or (eje_y == 1 and eje_x == 2) or (eje_y == 3 and eje_x == 1) or (eje_y == 4 and eje_x == 2):
+            return True;
+
+    def parametros_S(eje_x, eje_y):
+        if (eje_y % 2 == 0) or (eje_y < 2 and eje_x == 0) or (eje_y > 2 and eje_x == 2):
+            return True;
+
+    def parametros_T(eje_x, eje_y):
+        if eje_y == 0 or eje_x == 1:
+            return True;
+
+    def parametros_U(eje_x, eje_y):
+        if eje_y == 4 or eje_x % 2 == 0:
+             return True;
+
+    def parametros_V(eje_x, eje_y):
+        if (eje_y < 4 and eje_x % 2 == 0) or (eje_y == 4 and eje_x == 1):
+            return True;
+
+    def parametros_W(eje_x, eje_y):
+        if eje_y == 3 or eje_x % 2 == 0:
+            return True;
+
+    def parametros_X(eje_x, eje_y):
+        if (eje_y != 2 and eje_x % 2 == 0) or (eje_y == 2 and eje_x == 1):
+            return True;
+
+    def parametros_Y(eje_x, eje_y):
+        if (eje_y < 2 and eje_x % 2 == 0) or (eje_y > 1 and eje_x == 1):
+            return True;
+
+    def parametros_Z(eje_x, eje_y):
+        if (eje_y % 4 == 0) or (eje_y == 1 and eje_x == 2) or (eje_y == 2 and eje_x == 1) or (eje_y == 3 and eje_x == 0):
+             return True;
+
+    def dibujar(inicio_x, inicio_y, letra):
         for eje_y in range(0, 5):
             for eje_x in range(0, 3):
-                if eje_x == 0 or eje_y == 4:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_M(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_x % 2 == 0 or eje_y == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_N(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_x % 2 == 0 and eje_y > 0) or eje_y == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_O(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 4 == 0 and eje_x == 1) or (eje_y % 4 != 0 and eje_x % 2 == 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_P(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 2 == 0 and eje_y < 3) or (eje_y < 3 and eje_x % 2 == 0) or (eje_x == 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_Q(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 2 == 0 and eje_y < 3) or (eje_y < 3 and eje_x % 2 == 0) or (eje_x == 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_R(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 2 == 0 and eje_y < 3) or (eje_x == 0) or (eje_y == 1 and eje_x == 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 3 and eje_x == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-                elif eje_y == 4 and eje_x == 2:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_S(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 2 == 0) or (eje_y < 2 and eje_x == 0) or (eje_y > 2 and eje_x == 2):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_T(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y == 0 or eje_x == 1:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_U(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y == 4 or eje_x % 2 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_V(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y < 4 and eje_x % 2 == 0) or (eje_y == 4 and eje_x == 1):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_W(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if eje_y == 3 or eje_x % 2 == 0:
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_X(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y != 2 and eje_x % 2 == 0) or (eje_y == 2 and eje_x == 1):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_Y(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y < 2 and eje_x % 2 == 0) or (eje_y > 1 and eje_x == 1):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
-    def dibujar_Z(inicio_x, inicio_y):
-        for eje_y in range(0, 5):
-            for eje_x in range(0, 3):
-                if (eje_y % 4 == 0) or (eje_y == 1 and eje_x == 2) or (eje_y == 2 and eje_x == 1) or (eje_y == 3 and eje_x == 0):
-                    asterisco(inicio_x + eje_x, inicio_y + eje_y);
-
+                if letra(eje_x, eje_y):
+                    asterisco(inicio_x + eje_x, inicio_y + eje_y)
+    
     imprimirDatos();
-    dibujar_Z(puntero_x, puntero_y);
+    dibujar(puntero_x, puntero_y, parametros_A);
 
 def imprimir():
     e1(); 
