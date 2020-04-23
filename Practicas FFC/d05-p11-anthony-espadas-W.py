@@ -10,16 +10,36 @@ def e1(): #Programa que recorre una frase resaltando la letra seleccionada
     #Guardan la posicion del puntero
     puntero_x = 1;
     puntero_y = 5;
+    
+    #Captura la tecla presionada por el usuario
+    def leerTecla():
+        tecla = ord(getch());
+
+        if tecla == 224:
+            tecla = ord(getch());
+
+            if tecla == 75:
+                return "izquierda";
+            elif tecla == 77:
+                return "derecha";
+
+        elif tecla == 27:
+            return "fin";
+        else:
+            return "nada";
 
     def imprimirDatos():
         print(Cursor.POS(1,1) + Fore.WHITE + "practica 11");
         print(Cursor.POS(1,2) + Fore.WHITE + "espadas rodriguez anthony jonathan");
         print(Cursor.POS(1,3) + Fore.WHITE + "mariscal cervantes diego maximiliano\n");
+
+        print(Cursor.POS(40, 1) + Fore.WHITE + "Usa las teclas derecha/izquierda para cambiar la letra seleccionada");
+        print(Cursor.POS(40, 2) + Fore.WHITE + "Presionada Esc para cambiar de frase o salir");
     
     #Se encarga de dibujar los simbolos
     def gato(posicion_x, posicion_y, colorear):
         if colorear == True: #valida que la letra sea la seleccionada
-            print(Cursor.POS(posicion_x, posicion_y) + Back.GREEN + Fore.GREEN + "#");
+            print(Cursor.POS(posicion_x, posicion_y) + Back.WHITE + Fore.WHITE + "#");
         else:    
             print(Cursor.POS(posicion_x, posicion_y) + "#");
 
@@ -144,37 +164,81 @@ def e1(): #Programa que recorre una frase resaltando la letra seleccionada
     imprimirDatos();
     print(Cursor.POS(puntero_x, puntero_y) + "Introduce una frase:");
     mensaje = (str(input()));  #Se hace es casteo de tipo
+    limite = len(mensaje); #Fija un rango de valores que pueden ser tomados por el 'puntero'
     mensaje = mensaje.upper(); #Cambiamos a mayusculas para comprar en el diccionario
     mensaje = tuple(mensaje); #Se vuelve una tupla para conservar el orden en las iteraciones
     seleccionada = 1; #Primera letra en aparecer seleccionada
     contador = 0; #Lleva registro de las letras iteradas
 
-    print('\x1b[2J', end = "");
-    imprimirDatos();
+    #Ciclo que permite repetir el proceso con otra palabra
+    while True:
+        #ciclo que permite cambiar el color de las letras en cada palabra
+        while True:
+            print('\x1b[2J', end = "");
+            imprimirDatos();
 
-    for i in mensaje:
-        colorear = False; #variable que indica cuando una letra debe ser resaltada 
-        contador += 1;
+            for i in mensaje:
+                colorear = False; #variable que indica cuando una letra debe ser resaltada 
+                contador += 1;
 
-        try:
-            if seleccionada == contador:
-                colorear = True; #Si la letra seleccionada coincide con el contador, entonces se resalta
+                try:
+                    if seleccionada == contador:
+                        colorear = True; #Si la letra seleccionada coincide con el contador, entonces se resalta
 
-            dibujar(puntero_x, puntero_y, letras[i], colorear); #Se compara la posicion en i de la tupla con el diccionario
+                    dibujar(puntero_x, puntero_y, letras[i], colorear); #Se compara la posicion en i de la tupla con el diccionario
 
-        except:
-            puntero_x += 4; #De no encontrarse en el diccionario se deja el espacio vacio
-            contador -= 1; #Mueve el contador para que no se seleccionen los espacios
+                except:
+                    puntero_x += 4; #De no encontrarse en el diccionario se deja el espacio vacio
+                    contador -= 1; #Mueve el contador para que no se seleccionen los espacios
         
-        else:
-            puntero_x += 4; #Se mueve el puntero para comenzar el dibujado de la siguiente letra
+                else:
+                    puntero_x += 4; #Se mueve el puntero para comenzar el dibujado de la siguiente letra
         
-        if puntero_x > 120: #Cuando se alcance el borde de la pantalla
-            puntero_x = 1; #Se regresa el puntero X al inicio de la consola
-            puntero_y +=7; #Y nos desplazamos un renglon abajo
+                if puntero_x > 120: #Cuando se alcance el borde de la pantalla
+                    puntero_x = 1; #Se regresa el puntero X al inicio de la consola
+                    puntero_y +=7; #Y nos desplazamos un renglon abajo
+            
+            accion = leerTecla();
+            
+            #realiza el movimiento del 'puntero' 
+            if accion == "izquierda":
+                seleccionada -= 1;
+            elif accion == "derecha":
+                seleccionada += 1;
+            
+            #Corrige posicion en caso de que salga del rango
+            if seleccionada < 1:
+                seleccionada = limite - 1;
+            if seleccionada > limite:
+                seleccionada = 1;
+
+            #Se reestablecen los punteros
+            puntero_x = 1;
+            puntero_y = 5;
+            contador = 0;
+
+            if accion == "fin":
+                break;
+        
+        print('\x1b[2J', end = "");
+        imprimirDatos();
+        print(Cursor.POS(puntero_x, puntero_y) + "Presiona Esc para salir o Enter para ingresar otra frase");
+
+        accion = leerTecla();
+
+        if accion == "fin":
+            break;
+        elif accion == "nada":
+            print('\x1b[2J', end = "");
+            imprimirDatos();
+            print(Cursor.POS(puntero_x, puntero_y) + "Ingresa la frase");
+            mensaje = (str(input()));
+            limite = len(mensaje);
+            mensaje = mensaje.upper();
+            mensaje = tuple(mensaje);
+            seleccionada = 1;
 
 def imprimir():
     e1(); 
-    input();
 
 imprimir(); 
