@@ -66,26 +66,54 @@ def e1 (): #Simula la administracion de una fruteria
     def parametros_U(eje_x, eje_y):
         if eje_y == 4 or eje_x % 2 == 0:
             return True;
+
+    def parametros_V(eje_x, eje_y):
+        if (eje_y < 4 and eje_x % 2 == 0) or (eje_y == 4 and eje_x == 1):
+            return True;
     
     #Diccionario que enlaza cada letra con sus parametros
-    diccionario_letras = {"A": parametros_A, "B": parametros_B, "E": parametros_E, "F": parametros_F, "G": parametros_G, "I": parametros_I, "J": parametros_J, "L":parametros_L, "M": parametros_M, "N": parametros_N, "O": parametros_O, "R": parametros_R, "S": parametros_S, "T": parametros_T, "U": parametros_U}
+    diccionario_letras = {"A": parametros_A, "B": parametros_B, "E": parametros_E, "F": parametros_F, "G": parametros_G, "I": parametros_I, "J": parametros_J, "L":parametros_L, "M": parametros_M, "N": parametros_N, "O": parametros_O, "R": parametros_R, "S": parametros_S, "T": parametros_T, "U": parametros_U, "V": parametros_V}
 
-    def colorearEspacio(posicion_x, posicion_y): #Da color a los espacios del titulo
-        print(Cursor.POS(posicion_x, posicion_y) + Back.WHITE + " ");
+    def leerCaracter(): #Convierte la tecla ingresada en una instruccion para el programa
+        primer_ingreso = ord(msvcrt.getch());
+        #Detecta el codigo del caracter para determinar su instruccion
+        if primer_ingreso == 49:
+            return "uno";
+        elif primer_ingreso == 50:
+            return "dos";
+        elif primer_ingreso == 51:
+            return "tres";
+        elif primer_ingreso == 52:
+            return "cuatro";
+        elif primer_ingreso == 13:
+            return "enter";
+        elif primer_ingreso == 27:
+            return "escape";
+        elif primer_ingreso == 224:#Detecta si se ingreso un caracter especial
+            segundo_ingreso = ord(msvcrt.getch());
+            #Y le asigna su accion
+            if segundo_ingreso == 72:
+                return "arriba";
+            elif segundo_ingreso == 80:
+                return "abajo";
+            else:
+                return "nada";
+        else:
+            return "nada"; #Se regresa el 'nada' para que el ciclo while tenga un resultado a comprar y evitar errores
 
-    def escribirLetra(inicio_x, inicio_y, letra): #Se encarga de validar posiciones de las letras en el titulo
+    def escribirLetra(inicio_x, inicio_y, letra): #Usa los parametros para validar posiciones y escribir las letras del titulo
         for eje_y in range(0, 5):
             for eje_x in range(0, 3):
                 if letra(eje_x, eje_y):
-                    colorearEspacio(inicio_x + eje_x, inicio_y + eje_y)
+                    print(Cursor.POS(inicio_x + eje_x, inicio_y + eje_y) + Back.WHITE + " ");
 
-    def impimirFondo(): #Dibuja el fondo de la aplicacion
+    def impimirFondo(): #Dibuja el fondo verde de la aplicacion
         print('\x1b[2J', end = "");
         for renglon in range(2, 30):
             for columna in range(10, 112):
                 print(Cursor.POS(columna, renglon) + Back.GREEN + " ");
 
-    def fondoAmarillo(inicio, final): #Dibuja los fondos amarillos para mostrar informaicon al usuario
+    def fondoAmarillo(inicio, final): #Dibuja los fondos amarillos donde se muestra la informaicon al usuario
         for renglon in range(inicio, final):
             for columna in range(121):
                 if (renglon > inicio and renglon < final) and (columna > 12 and columna < 108):
@@ -104,6 +132,43 @@ def e1 (): #Simula la administracion de una fruteria
                     cursor_x += 4;
             break;
 
+    def informacionMenu(seleccion): #Muestra las opciones de la pantalla de menu
+        if (seleccion % 4) == 1: #Si una opcion es seleccionada la pinta en rojo
+            print(Cursor.POS(50, 12) + Back.RED + "(1)  Ventas");
+        else: #De no estarlo se pinta en amarillo
+            print(Cursor.POS(50, 12) + Back.YELLOW + "(1)  Ventas");
+        if (seleccion % 4) == 2:
+            print(Cursor.POS(50, 16) + Back.RED + "(2)  Altas");
+        else:
+            print(Cursor.POS(50, 16) + Back.YELLOW + "(2)  Altas");
+        if (seleccion % 4) == 3:
+            print(Cursor.POS(50, 20) + Back.RED + "(3)  Bajas");
+        else:
+            print(Cursor.POS(50, 20) + Back.YELLOW + "(3)  Bajas");
+        if (seleccion % 4) == 0:
+            print(Cursor.POS(50, 24) + Back.RED + "(4)  Salir");
+        else:
+            print(Cursor.POS(50, 24) + Back.YELLOW + "(4)  Salir");
+
+    def informacionAltasBajas(seleccion): #Muestra las opciones de la pantalla 'altas' y 'bajas'
+        if (seleccion % 3) == 1: #Si una opcion esta seleccionada la pinta de rojo
+            print(Cursor.POS(50, 12) + Back.RED + "(1) Datos de la fruteria");
+        else: #De no estarlo se pinta en amarillo
+            print(Cursor.POS(50, 12) + Back.YELLOW + "(1) Datos de la fruteria");
+        if (seleccion % 3) == 2:
+            print(Cursor.POS(50, 16) + Back.RED + "(2) Producto");
+        else:
+            print(Cursor.POS(50, 16) + Back.YELLOW + "(2) Producto");
+        if (seleccion % 3) == 0:
+            print(Cursor.POS(50, 20) + Back.RED + "(3) Empleados");
+        else:
+            print(Cursor.POS(50, 20) + Back.YELLOW + "(3) Empleados");
+
+        print(Cursor.POS(40, 24) + Back.YELLOW + "Presiona 'Esc' para volver al menu anterior")
+
+    def informacionVentas(seleccion): #Muestra las opciones para la pantallas de 'ventas'
+        pass;
+
     def pantallaTitulo(): #Dibuja la pantalla de bienvenida al programa
         impimirFondo();
         fondoAmarillo(9, 15);
@@ -116,66 +181,35 @@ def e1 (): #Simula la administracion de una fruteria
 
         input();
 
-    def dibujarPantalla(nombre): #Genera los recuadros amarillos y escribe el titulo para las pantallas de informacion
+    def dibujarPantalla(titulo_de_pantalla): #Genera los recuadros amarillos y escribe el titulo para las pantallas de informacion
         impimirFondo();
         fondoAmarillo(2, 8);
         fondoAmarillo(9, 29);
 
-        escribirTitulo(50, 3, nombre);
+        escribirTitulo(50, 3, titulo_de_pantalla);
 
-    def informacionMenu(seleccion): #Muestra las opciones de la pantalla de menu
-        if (seleccion % 4) == 1: 
-            print(Cursor.POS(50, 12) + Back.RED + "(1)  Venta");
-        else:
-            print(Cursor.POS(50, 12) + Back.YELLOW + "(1)  Venta");
-        if (seleccion % 4) == 2:
-            print(Cursor.POS(50, 16) + Back.RED + "(2)  Alta");
-        else:
-            print(Cursor.POS(50, 16) + Back.YELLOW + "(2)  Alta");
-        if (seleccion % 4) == 3:
-            print(Cursor.POS(50, 20) + Back.RED + "(3)  Baja");
-        else:
-            print(Cursor.POS(50, 20) + Back.YELLOW + "(3)  Baja");
-        if (seleccion % 4) == 0:
-            print(Cursor.POS(50, 24) + Back.RED + "(4)  Salir");
-        else:
-            print(Cursor.POS(50, 24) + Back.YELLOW + "(4)  Salir");    
-
-    def leerCaracter(): #Convierte la tecla ingresada en una instruccion para el programa
-        primer_ingreso = ord(msvcrt.getch());
-
-        if primer_ingreso == 49:
-            return "uno";
-        elif primer_ingreso == 50:
-            return "dos";
-        elif primer_ingreso == 51:
-            return "tres";
-        elif primer_ingreso == 52:
-            return "cuatro";
-        elif primer_ingreso == 27:
-            return "enter";
-        elif primer_ingreso == 13:
-            return "escape";
-        elif primer_ingreso == 224:
-            segundo_ingreso = ord(msvcrt.getch());
-
-            if segundo_ingreso == 72:
-                return "arriba";
-            elif segundo_ingreso == 80:
-                return "abajo";
-            elif segundo_ingreso == 75:
-                return "izquierda";
-            elif segundo_ingreso == 77:
-                return "derecha"
+    def implementarPantalla(pantalla_a_implementar, informacion_a_mostrar): #Se encarga de controlar los datos que se presentan en cada una de las pantalas
+        seleccion = 19; #Variable que ayuda a controlar la seleccion dentro de las opciones
+        dibujarPantalla(pantalla_a_implementar);
+        while (True):
+            if informacion_a_mostrar == "uno":
+                informacionVentas(seleccion);
             else:
-                return "nada";
-        else:
-            return "nada";
+                informacionAltasBajas(seleccion);
+            
+            accion = leerCaracter();
+
+            if accion == "arriba":
+                seleccion -= 1;
+            elif accion == "abajo":
+                seleccion += 1;
+            elif accion == "escape":
+                break;
 
     pantallaTitulo();
-    seleccion = 21;
+    seleccion = 21; #Variable que sirve como control para la eleccion dentro de los menus
     
-    while(True):
+    while(True): #Ciclo principal, desde el que se implementan los demas
         dibujarPantalla("MENU");
         informacionMenu(seleccion);
 
@@ -185,9 +219,21 @@ def e1 (): #Simula la administracion de una fruteria
             seleccion -= 1;
         elif accion == "abajo":
             seleccion += 1;
+        elif (accion == "enter" and (seleccion % 4 == 1)) or accion == "uno":
+            accion = "uno";
+            implementarPantalla("VENTAS", accion);
+        elif (accion == "enter" and (seleccion % 4 == 2)) or accion == "dos":
+            accion = "dos";
+            implementarPantalla("ALTAS", accion);
+        elif (accion == "enter" and (seleccion % 4 == 3)) or accion == "tres":
+            accion = "tres";
+            implementarPantalla("BAJAS", accion);
+        elif (accion == "enter" and (seleccion % 4 == 0)) or accion == "cuatro":
+            print('\x1b[2J', end = "");
+            break;
+        
 
 def imprimir():
     e1();
-    input();
 
 imprimir();

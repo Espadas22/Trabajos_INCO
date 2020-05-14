@@ -130,7 +130,7 @@ def e1(): #Programa que recorre una frase resaltando la letra seleccionada
 
     def parametros_U(eje_x, eje_y):
         if eje_y == 4 or eje_x % 2 == 0:
-             return True;
+            return True;
 
     def parametros_V(eje_x, eje_y):
         if (eje_y < 4 and eje_x % 2 == 0) or (eje_y == 4 and eje_x == 1):
@@ -150,7 +150,7 @@ def e1(): #Programa que recorre una frase resaltando la letra seleccionada
 
     def parametros_Z(eje_x, eje_y):
         if (eje_y % 4 == 0) or (eje_y == 1 and eje_x == 2) or (eje_y == 2 and eje_x == 1) or (eje_y == 3 and eje_x == 0):
-             return True;
+            return True;
 
     def dibujar(inicio_x, inicio_y, letra, colorear):
         for eje_y in range(0, 5):
