@@ -182,7 +182,6 @@ def e1 (): #Simula la administracion de una fruteria
         input();
 
     def dibujarPantalla(titulo_de_pantalla): #Genera los recuadros amarillos y escribe el titulo para las pantallas de informacion
-        impimirFondo();
         fondoAmarillo(2, 8);
         fondoAmarillo(9, 29);
 
@@ -204,13 +203,14 @@ def e1 (): #Simula la administracion de una fruteria
             elif accion == "abajo":
                 seleccion += 1;
             elif accion == "escape":
+                dibujarPantalla("MENU"); #Se reestablece el titulo para que el while solo afecte a la informacion
                 break;
 
     pantallaTitulo();
     seleccion = 21; #Variable que sirve como control para la eleccion dentro de los menus
-    
+    dibujarPantalla("MENU"); #Se establece el titulo para que el while solo afecte a la informacion
+
     while(True): #Ciclo principal, desde el que se implementan los demas
-        dibujarPantalla("MENU");
         informacionMenu(seleccion);
 
         accion = leerCaracter(); 
